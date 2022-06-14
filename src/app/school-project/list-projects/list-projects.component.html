@@ -1,0 +1,66 @@
+<app-menu-profile-teacher></app-menu-profile-teacher>
+<div class="search">
+  <input
+    type="text"
+    [(ngModel)]="term"
+    class="searchTerm"
+    placeholder="¿Qué estas buscando?"
+  />
+</div>
+<div *ngIf="listSchoolProjectCard?.length == 0">
+  <h2>No existen proyectos disponibles</h2>
+</div>
+<div *ngIf="listSchoolProjectCard?.length > 0" class="row mt-3">
+  <div
+    class="col-md-6"
+    *ngFor="let project of listSchoolProjectCard | filter: term"
+  >
+    <div class="card p-3 mb-2 project">
+      <div class="c-details">
+        <h6 class="mb-0">
+          <i class="far fa-clock"></i>
+          {{ project.currentCreate | date: "mediumDate" }}
+        </h6>
+        <span
+          >{{ project.creatorProjectDTO.nameSchoolCreator }} ({{
+            project.creatorProjectDTO.city
+          }})</span
+        >
+      </div>
+      <div class="mt-2">
+        <h3 class="heading">{{ project.title }}</h3>
+        <span>{{ project.description }}</span>
+        <div>
+          <span class="text1"
+            >Responsable: {{ project.creatorProjectDTO.nameCreator }}</span
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div
+          *ngFor="let cycle of project.nameCycles"
+          class="cycle_space"
+          title="Ciclo Formativo"
+        >
+          <i class="fa-solid fa-book"></i>
+          <span>
+            {{ cycle }}
+          </span>
+        </div>
+        <span class="cycle_space" title="Equipo">
+          <i class="fa-solid fa-people-group"></i>
+          {{
+            project.collaboratorProjectDTOs?.length > 0
+              ? project.collaboratorProjectDTOs.length + 1
+              : 1
+          }}
+        </span>
+      </div>
+      <div class="row footer_card_project">
+        <button mat-raised-button (click)="openDialog(project.id)">
+          COLABORAR
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

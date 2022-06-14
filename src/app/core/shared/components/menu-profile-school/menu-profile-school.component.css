@@ -1,0 +1,31 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    background-color: #001f3f;
+    align-items: center;
+    padding: 0 20px;
+    padding-top: 13px;
+    height: 50px;
+}
+.logo {
+    color: white;
+    vertical-align: middle;
+}
+.options {
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+}
+.options a {
+    color: rgba(156, 156, 156, 0.8);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+.options a:hover{
+    color: white;
+}

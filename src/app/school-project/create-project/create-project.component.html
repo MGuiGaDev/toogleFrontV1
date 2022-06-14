@@ -1,0 +1,180 @@
+<app-menu-profile-teacher></app-menu-profile-teacher>
+<div class="container mt-5">
+  <div class="row">
+    <h1 class="text-center">{{ title }}</h1>
+  </div>
+  <div class="row toggle_switch">
+    <mat-slide-toggle color="primary" [(ngModel)]="showEditInfo">
+      Editar Información Proyecto
+    </mat-slide-toggle>
+    <div
+      class="container flex-row justify-content-center alig-items-center mt-3"
+      *ngIf="showEditInfo"
+    >
+      <div class="row p-2" id="card_special">
+        <form (ngSubmit)="initFormProjectInfo()" [formGroup]="projectForm">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="title"><h2>Título</h2></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                  required
+                />
+              </div>
+              <div
+                *ngIf="projectForm.get('title')?.touched && projectForm.get('title')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La contraseña debe tener más de
+                {{projectForm.get('title')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+            </div>
+          </div>
+
+          <div class="row description_field mt-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description"><h2>Descripción</h2></label>
+                <textarea
+                  class="form-control"
+                  formControlName="description"
+                  maxlength="280"
+                  required
+                ></textarea>
+              </div>
+              <div
+                *ngIf="projectForm.get('description')?.touched && projectForm.get('description')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La descripción debe tener más de
+                {{projectForm.get('description')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-outline-success btn-block mt-4 mb-3 btn_b"
+            [disabled]="projectForm.invalid"
+            id="btn_special"
+            (click)="editProjectInfo()"
+          >
+            Actualizar
+          </button> 
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  
+    CICLOS
+  -->
+  <div class="row mt-5">
+    <h1 class="col-12">CICLOS ASOCIADOS</h1>
+    <div class="cycles_selected">
+      <div
+        *ngFor="let cycle of listStudiesCycleProyect"
+        id="{{ cycle.code }}"
+        class="cycle_deletable"
+      >
+        <p>{{ cycle.name }}</p>
+        <button (click)="removeCycle(cycle.code)" class="bt_es">x</button>
+      </div>
+    </div>
+    <mat-slide-toggle color="primary" [(ngModel)]="showAddCycleProject">
+      Gestionar ciclos asociados
+    </mat-slide-toggle>
+    <app-select-studies-degree
+      [teacherCreatorId]="teacherId!"
+      [listStudiesCycle]="listStudiesCycle"
+      [listSelectedCycles]="listSelectedCycles"
+      *ngIf="showAddCycleProject"
+      [@inOutAnimationCycles]
+      (newItemEvent)="addItem($event)"
+    ></app-select-studies-degree>
+  </div>
+
+  <!--
+    COLABORADORES
+  -->
+  <div>
+    <div class="row mt-5">
+      <h1 class="col-12">COLABORADORES</h1>
+      <div *ngIf="listCollaborators.length == 0">
+        <h3>No tiene colaboradores.</h3>
+      </div>
+      <div *ngIf="listCollaborators.length > 0">
+        <table datatable [dtOptions]="dtOptions">
+          <thead>
+            <tr>
+              <th scope="col">Profesor</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="listCollaborators.length > 0">
+            <tr *ngFor="let collaborator of listCollaborators">
+              <td>{{ collaborator.userNested.name }}</td>
+              <td>{{ collaborator.userNested.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="!listCollaborators">
+        <h3>Actualmente no existen colaboradores</h3>
+      </div>
+    </div>
+    <mat-slide-toggle color="primary" [(ngModel)]="showCollaboratorRequests">
+      Gestionar solicitudes de colaboración
+    </mat-slide-toggle>
+    <div class="mt-3" *ngIf="showCollaboratorRequests">
+      <h3 *ngIf="collaborationRequestsDTO.length == 0">
+        No tiene solicitudes pendientes.
+      </h3>
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        *ngIf="collaborationRequestsDTO.length > 0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Profesor</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Centro</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="collaborationRequestsDTO.length > 0">
+          <tr *ngFor="let collaborationRequest of collaborationRequestsDTO">
+            <td>{{ collaborationRequest.nameTeacher }}</td>
+            <td>{{ collaborationRequest.send | date: "fullDate" }}</td>
+            <td>{{ collaborationRequest.citySchool }}</td>
+            <td>{{ collaborationRequest.nameSchool }}</td>
+            <td>
+              <button
+                *ngIf="collaborationRequest.id"
+                class="btn btn-outline-danger"
+                (click)="refuseCollaborationRequest(collaborationRequest.id)"
+              >
+                Rechazar
+              </button>
+              <button
+                *ngIf="collaborationRequest.id"
+                class="btn btn-outline-success"
+                (click)="aceptCollaborationRequest(collaborationRequest)"
+              >
+                Aceptar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

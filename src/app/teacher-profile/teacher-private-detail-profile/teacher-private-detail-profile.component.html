@@ -1,0 +1,353 @@
+<app-menu-profile-teacher></app-menu-profile-teacher>
+<div class="container" *ngIf="teacherName">
+  <div class="row">
+    <ul class="menu_school">
+      <li>
+        <button class="menu_school_button" (click)="ngShowData()">
+          PERFIL
+        </button>
+      </li>
+      <li>
+        <button class="menu_school_button" (click)="ngShowStudies()">
+          CICLOS ASOCIADOS
+        </button>
+      </li>
+      <li>
+        <button class="menu_school_button" (click)="ngShowProyects()">
+          PROYECTOS
+        </button>
+      </li>
+    </ul>
+  </div>
+  <!--
+
+    DATOS
+
+  -->
+  <div class="row" *ngIf="showData">
+    <h1>DATOS PERSONALES</h1>
+    <mat-slide-toggle color="primary" [(ngModel)]="showUpdateDataTechaer">
+      Actualizar datos
+    </mat-slide-toggle>
+    <!--DATOS-->
+    <div class="container mt-2" *ngIf="!showUpdateDataTechaer">
+      <div class="row">
+        <div class="col-md-6" style="background-color: #aaa">
+          <h2>Nombre</h2>
+          <p>{{ teacherName }}</p>
+        </div>
+        <div class="col-md-6" style="background-color: #bbb">
+          <h2>Email</h2>
+          <p>
+            {{ teacherEmail }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" style="background-color: #aaa">
+          <h2>Centro</h2>
+          <p>
+            {{ schoolProfileName }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2" *ngIf="showUpdateDataTechaer">
+      <form #f="ngForm" (ngSubmit)="updateDataTeacher()" [formGroup]="dataForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name">Nombre y apellidos</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                formControlName="name"
+                required
+              />
+            </div>
+            <div 
+              *ngIf="dataForm.get('name')?.touched && dataForm.get('name')?.errors?.['minlength']"
+              class="alert alert-danger"
+            >
+              El nombre debe contener un mínimo de
+              {{dataForm.get('name')?.errors?.['minlength']?.requiredLength}}
+              caracteres
+            </div>
+            <div
+              *ngIf="dataForm.get('name')?.touched && dataForm.get('name')?.errors?.['maxlength']"
+              class="alert alert-danger"
+            >
+              El nombre debe contener un máximo de
+              {{dataForm.get('name')?.errors?.['maxlength']?.requiredLength}}
+              caracteres
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                required
+              />
+            </div>
+            <div
+              *ngIf="dataForm.get('email')?.touched && dataForm.get('email')?.errors?.['email']"
+              class="alert alert-danger"
+            >
+              El correo está mal formado.
+            </div>
+            <div
+              *ngIf="dataForm.get('email')?.touched && dataForm.get('email')?.errors?.['maxlength']"
+              class="alert alert-danger"
+            >
+              El correo debe contener un máximo de
+              {{dataForm.get('email')?.errors?.['maxlength']?.requiredLength}}
+              caracteres
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="schoolProfileName"><h2>Centro</h2></label>
+              <input
+                type="text"
+                class="form-control"
+                id="schoolProfileName"
+                name="schoolProfileName"
+                placeholder="{{ schoolProfileName }}"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-outline-success btn-block mt-3"
+          [disabled]="dataForm.invalid"
+        >
+          Actualizar
+        </button>
+      </form>
+    </div>
+
+    <h2 class="mt-4">PASSWORD</h2>
+    <mat-slide-toggle
+      color="primary"
+      [(ngModel)]="showUpdatePassword"
+      class="mt-1"
+    >
+      Actualizar Contraseña
+    </mat-slide-toggle>
+    <div
+      class="container mt-2"
+      *ngIf="showUpdatePassword"
+      [@inOutAnimationCycles]
+    >
+      <form (ngSubmit)="updatePasswordTeacher()" [formGroup]="passwordForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="newPass"><h2>Nueva Contraseña</h2></label>
+              <input
+                type="password"
+                class="form-control"
+                id="newPass"
+                name="newPass"
+                formControlName="newPass"
+                required
+              />
+            </div>
+            <div
+              *ngIf="passwordForm.get('newPass')?.touched && passwordForm.get('newPass')?.errors?.['minlength']"
+              class="alert alert-danger"
+            >
+              La contraseña debe tener más de
+              {{passwordForm.get('newPass')?.errors?.['minlength']?.requiredLength}}
+              caracteres
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="password"><h2>Confirmación</h2></label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                formControlName="password"
+                required
+              />
+              <div
+                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La contraseña debe tener más de
+                {{passwordForm.get('password')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+              <div
+                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['validUpdatePassword']"
+                class="alert alert-danger"
+              >
+                La contraseña de confirmación no coincide.
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-success btn-block mt-3"
+          [disabled]="passwordForm.invalid"
+        >
+          Actualizar
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!--
+
+    CYCLES
+
+  -->
+  <div class="row" *ngIf="showStudies">
+    <h1>CICLOS FORMATIVOS ASOCIADOS</h1>
+    <table
+      class="table table-dark table-striped mt-1"
+      *ngIf="listCycles!.length > 0"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Familia</th>
+          <th scope="col">Ciclo</th>
+          <th scope="col">Nivel</th>
+          <th scope="col">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ciclo of listCycles">
+          <td>{{ ciclo.nameFamily }}</td>
+          <td>{{ ciclo.name }}</td>
+          <td>{{ ciclo.level }}</td>
+          <td>
+            <button
+              class="btn btn-outline-danger"
+              (click)="deleteCycle(teacherId!, ciclo.code!)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container">
+      <mat-slide-toggle color="primary" [(ngModel)]="showAddCycle">
+        Añadir ciclo
+      </mat-slide-toggle>
+      <div class="container" *ngIf="showAddCycle" [@inOutAnimationCycles]>
+        <app-select-studies-degree
+          [teacherId]="teacherId!"
+          [schoolProfileId]="schoolProfileId!"
+          [listStudiesCycle]="listStudiesCycle!"
+        ></app-select-studies-degree>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+
+    PROJECTS
+
+  -->
+
+  <div class="row" *ngIf="showProyects">
+    <h1>PROYECTOS PROPIOS</h1>
+    <table
+      class="table table-dark table-striped mt-1"
+      *ngIf="schoolProjectsCreator!.length > 0"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Ciclos</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of schoolProjectsCreator">
+          <td>{{ project.title }}</td>
+          <td>{{ project.description }}</td>
+          <td>
+            <p *ngFor="let cycle of project.listStudiesCycle">
+              {{ cycle.name }}
+            </p>
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-danger"
+              (click)="deleteProject(project.id!)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+            <button
+              class="btn btn-outline-warning"
+              routerLink="/toggle/perfil-teacher/{{
+                this.username
+              }}/crear-proyecto/{{ project.id }}"
+            >
+              <i class="far fa-edit"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      mat-raised-button
+      (click)="openDialog()"
+      *ngIf="listStudiesCycle!.length > 0"
+    >
+      Crear Proyecto
+    </button>
+
+    <!-- 
+
+    PROYECTOS COLABORATIVOS
+
+  -->
+
+    <h1 class="mt-5">PROYECTOS COLABORTIVOS</h1>
+    <table
+      class="table table-dark table-striped mt-1"
+      *ngIf="listCollaboratorProject!.length > 0"
+    >
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Centro</th>
+          <th scope="col">Fecha de creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of listCollaboratorProject">
+          <td>{{ project.title }}</td>
+          <td>
+            {{ project.creatorProjectDTO.nameSchoolCreator }} ({{
+              project.creatorProjectDTO.city
+            }})
+          </td>
+          <td>{{ project.currentCreate | date: "mediumDate" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

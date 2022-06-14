@@ -1,0 +1,452 @@
+<app-menu-profile-school></app-menu-profile-school>
+<div class="container" *ngIf="schoolProfile">
+  <!-- 
+
+  DATOS DEL CENTRO
+
+-->
+  <div class="container">
+    <div class="row">
+      <ul class="menu_school">
+        <li>
+          <button class="menu_school_button" (click)="ngShowDataSchool()">
+            DATOS DEL CENTRO
+          </button>
+        </li>
+        <li>
+          <button class="menu_school_button" (click)="ngShowTeacher()">
+            PROFESORES
+          </button>
+        </li>
+        <li>
+          <button class="menu_school_button" (click)="ngShowStudies()">
+            CICLOS ASOCIADOS
+          </button>
+        </li>
+        <li>
+          <button class="menu_school_button" (click)="ngShowDataAdmin()">
+            DATOS DE ADMINISTRADOR
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="row" *ngIf="showDataSchool">
+      <h1>DATOS DEL CENTRO</h1>
+      <mat-slide-toggle color="primary" [(ngModel)]="showUpdateDataSchool">
+        Actualizar datos
+      </mat-slide-toggle>
+      <!--DATOS-->
+      <div class="container mt-2" *ngIf="!showUpdateDataSchool">
+        <div class="row">
+          <div class="col-md-6" style="background-color: #aaa">
+            <h2>Nombre del centro</h2>
+            <p>{{ schoolProfile.name }}</p>
+          </div>
+          <div class="col-md-6" style="background-color: #bbb">
+            <h2>Ciudad</h2>
+            <p>
+              {{
+                schoolProfile.city ? schoolProfile.city : "No ha añadido ciudad"
+              }}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="background-color: #aaa">
+            <h2>Descripción</h2>
+            <p>
+              {{
+                schoolProfile.description
+                  ? schoolProfile.description
+                  : "No ha añadido descripción."
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-2" *ngIf="showUpdateDataSchool">
+        <form (ngSubmit)="onUpdateSchool()" [formGroup]="dataForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name"><h2>Nombre</h2></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  formControlName="name"
+                  placeholder="{{ schoolProfile.name }}"
+                  required
+                />
+              </div>
+              <div
+                *ngIf="dataForm.get('name')?.touched && dataForm.get('name')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                El nombre de centro debe contener más de
+                {{dataForm.get('name')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+              <div
+                *ngIf="dataForm.get('name')?.touched && dataForm.get('name')?.errors?.['maxlength']"
+                class="alert alert-danger"
+              >
+                El nombre de centro debe contener un máximo de
+                {{dataForm.get('name')?.errors?.['maxlength']?.requiredLength}}
+                caracteres
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="city"><h2>Ciudad</h2></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  formControlName="city"
+                  placeholder="{{ schoolProfile.city }}"
+                  required
+                />
+              </div>
+              <div
+                *ngIf="dataForm.get('city')?.touched && dataForm.get('city')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La ciudad debe contener más de
+                {{dataForm.get('city')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+              <div
+                *ngIf="dataForm.get('city')?.touched && dataForm.get('city')?.errors?.['maxlength']"
+                class="alert alert-danger"
+              >
+                La ciudad debe contener un máximo de
+                {{dataForm.get('city')?.errors?.['maxlength']?.requiredLength}}
+                caracteres
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description"><h2>Descripción</h2></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  formControlName="description"
+                  placeholder="{{
+                    schoolProfile.description
+                      ? schoolProfile.description
+                      : 'Añada una descripción'
+                  }}"
+                  required
+                />
+              </div>
+              <div
+                *ngIf="dataForm.get('description')?.touched && dataForm.get('description')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La descripción debe contener más de
+                {{dataForm.get('description')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+              <div
+                *ngIf="dataForm.get('description')?.touched && dataForm.get('description')?.errors?.['maxlength']"
+                class="alert alert-danger"
+              >
+                La descripción debe contener un máximo de
+                {{dataForm.get('description')?.errors?.['maxlength']?.requiredLength}}
+                caracteres
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn btn-outline-success btn-block mt-3"
+            [disabled]="!dataForm.valid"
+          >
+            Actualizar
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!--
+      PROFESORES
+    -->
+    <div class="row" *ngIf="showTeacher">
+      <h1>PROFESORES</h1>
+      <table
+        class="table table-dark table-striped mt-1"
+        *ngIf="listT!.length > 0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Nombre Profesor</th>
+            <th scope="col">Nombre de usuario</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ciclos</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let teacher of listT">
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.username }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.ciclos }}</td>
+            <td>
+              <button
+                class="btn btn-outline-danger"
+                (click)="ngDeleteTeacher(teacher.username!)"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-slide-toggle color="primary" [(ngModel)]="showCreateTeacher">
+        Añadir profesor
+      </mat-slide-toggle>
+
+      <div class="container" *ngIf="showCreateTeacher" [@inOutAnimationTeacher]>
+        <app-create-teacher
+          [idSchoolProfile]="schoolProfile.id!"
+        ></app-create-teacher>
+      </div>
+    </div>
+    <!-- 
+  
+    CICLOS
+  
+  -->
+    <div class="row" *ngIf="showStudies">
+      <h1>CICLOS FORMATIVOS</h1>
+      <table
+        class="table table-dark table-striped mt-1"
+        *ngIf="list!.length > 0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Familia</th>
+            <th scope="col">Ciclo</th>
+            <th scope="col">Nivel</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ciclo of list">
+            <td>{{ ciclo.nameFamily }}</td>
+            <td>{{ ciclo.name }}</td>
+            <td>{{ ciclo.level }}</td>
+            <td>
+              <button
+                class="btn btn-outline-danger"
+                (click)="ngDeleteCycle(schoolProfile.id!, ciclo.code!)"
+              >
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="container">
+        <mat-slide-toggle color="primary" [(ngModel)]="showAddCiclo">
+          Añadir ciclo
+        </mat-slide-toggle>
+        <div class="container" *ngIf="showAddCiclo" [@inOutAnimationCycles]>
+          <app-select-studies-degree
+            [idSchoolProfile]="schoolProfile.id!"
+            [schoolProfileName]="schoolProfile.name!"
+            [list]="list"
+          ></app-select-studies-degree>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  ADMINISTRADOR
+-->
+  <div class="row" *ngIf="showDataAdmin">
+    <h1>DATOS DEL ADMINISTRADOR</h1>
+    <mat-slide-toggle color="primary" [(ngModel)]="showUpdateDataManager">
+      Actualizar Datos
+    </mat-slide-toggle>
+    <div class="row mt-2" *ngIf="!showUpdateDataManager">
+      <div class="col-md-4" style="background-color: #aaa">
+        <h2>Nombre</h2>
+        <p>{{ schoolProfile.userManager?.name }}</p>
+      </div>
+      <div class="col-md-4" style="background-color: #bbb">
+        <h2>Nombre de usuario</h2>
+        <p>{{ schoolProfile.userManager?.username }}</p>
+      </div>
+      <div class="col-md-4" style="background-color: #bbb">
+        <h2>Email</h2>
+        <p>{{ schoolProfile.userManager?.email }}</p>
+      </div>
+    </div>
+    <div class="container mt-2" *ngIf="showUpdateDataManager">
+      <form (ngSubmit)="onUpdateManager()" [formGroup]="dataManager">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="name">Nombre y apellidos</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            required
+          />
+            </div>
+            <div
+          *ngIf="dataManager.get('name')?.touched && dataManager.get('name')?.errors?.['minlength']"
+          class="alert alert-danger"
+        >
+          El nombre debe contener un mínimo de 
+          {{dataManager.get('name')?.errors?.['minlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div
+          *ngIf="dataManager.get('name')?.touched && dataManager.get('name')?.errors?.['maxlength']"
+          class="alert alert-danger"
+        >
+          El nombre debe contener un máximo de
+          {{dataManager.get('name')?.errors?.['maxlength']?.requiredLength}}
+          caracteres
+        </div>
+
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="username">Nombre de usuario</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+                value="{{username}}"
+                readonly
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                required
+              />
+            </div>
+            <div
+              *ngIf="dataManager.get('email')?.touched && dataManager.get('email')?.errors?.['email']"
+              class="alert alert-danger"
+            >
+              El correo está mal formado.
+            </div>
+            <div
+              *ngIf="dataManager.get('email')?.touched && dataManager.get('email')?.errors?.['maxlength']"
+              class="alert alert-danger"
+            >
+              El correo debe contener un máximo de
+              {{dataManager.get('email')?.errors?.['maxlength']?.requiredLength}}
+              caracteres
+            </div>
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-success btn-block mt-3"
+          [disabled]="dataManager.invalid"
+          (click)="toggle()"
+        >
+          Actualizar
+        </button>
+      </form>
+    </div>
+    <mat-slide-toggle
+      color="primary"
+      [(ngModel)]="showUpdatePassword"
+      class="mt-4"
+    >
+      Actualizar Contraseña
+    </mat-slide-toggle>
+    <div
+      class="container mt-2"
+      *ngIf="showUpdatePassword"
+      [@inOutAnimationCycles]
+    >
+      <form (ngSubmit)="onUpdateManagerPassword()" [formGroup]="passwordForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="newPass"><h2>Nueva Contraseña</h2></label>
+              <input
+                type="password"
+                class="form-control"
+                id="newPass"
+                name="newPass"
+                formControlName="newPass"
+                required
+              />
+            </div>
+            <div
+              *ngIf="passwordForm.get('newPass')?.touched && passwordForm.get('newPass')?.errors?.['minlength']"
+              class="alert alert-danger"
+            >
+              La contraseña debe tener más de
+              {{passwordForm.get('newPass')?.errors?.['minlength']?.requiredLength}}
+              caracteres
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="password"><h2>Confirmación</h2></label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                formControlName="password"
+                required
+              />
+              <div
+                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['minlength']"
+                class="alert alert-danger"
+              >
+                La contraseña debe tener más de
+                {{passwordForm.get('password')?.errors?.['minlength']?.requiredLength}}
+                caracteres
+              </div>
+              <div
+                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['validUpdatePassword']"
+                class="alert alert-danger"
+              >
+                La contraseña de confirmación no coincide.
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-success btn-block mt-3"
+          [disabled]="passwordForm.invalid"
+        >
+          Actualizar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

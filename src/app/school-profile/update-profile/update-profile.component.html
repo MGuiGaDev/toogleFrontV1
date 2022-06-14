@@ -1,0 +1,64 @@
+<app-menu-profile-school></app-menu-profile-school>
+<div class="row mt-5" *ngIf="schoolProfile">
+  <div class="col-md-4 mx-4">
+    <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="schoolProfile.name"
+          required
+        />
+      </div>
+      <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
+        Actualizar
+      </button>
+    </form>
+    <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="schoolProfile.name"
+          required
+        />
+      </div>
+      <table class="table table-dark table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Familia</th>
+            <th scope="col">Ciclo</th>
+            <th scope="col">Nivel</th>
+            <th scope="col">Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let studiesCycle of schoolProfile.listStudiesCycle">
+            <td>{{ studiesCycle.d_studiesFamily.name }}</td>
+            <td>{{ studiesCycle.name }}</td>
+            <td>{{ studiesCycle.c_studiesLevel.name }}</td>
+            <td>
+              <button class="btn btn-outline-danger">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+            <!--(click)="borrarProducto(producto.id!)"-->
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <div *ngIf="schoolProfile.listStudiesCycle != null" >
+  </div>
+  <div class="col-md-4 mx-4">
+    <form (ngSubmit)="onUpdate()" novalidate #f="ngForm"></form>
+  </div>
+  <app-select-studies-degree [list]="list"></app-select-studies-degree>
+</div>
+ 

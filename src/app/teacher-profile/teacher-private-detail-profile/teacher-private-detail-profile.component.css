@@ -1,0 +1,21 @@
+.menu_school {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
+    padding: 10px;
+}
+.menu_school_button{
+    border: none;
+    background: rgb(24, 21, 31);
+    color: white;
+    padding: 10px;
+    transition: .3s ease;
+    border-radius: 3px;
+}
+
+.menu_school_button:hover {
+    background: rgba(24, 21, 31, .8);
+}

@@ -1,0 +1,35 @@
+.project {
+  background: rgb(24, 21, 31);
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.66);
+}
+.cycle_space {
+  cursor: default;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background:rgba(83, 83, 83, 0.4);
+  font-size: 12px;
+  border-radius: 2px;
+  margin: 5px;
+  padding: 15px;
+  color: white;
+  width: fit-content;
+  transition: color 0.3s ease-in-out;
+}
+.cycle_space:hover {
+    background:rgba(156, 156, 156, 0.4);
+}
+span {
+    cursor: default;
+}
+.footer_card_project {
+  padding: 5px;
+}
+.footer_card_project button{
+  border: none;
+  background-color: rgb(255, 166, 83);
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+}

@@ -1,0 +1,30 @@
+<div class="container flex-row justify-content-center alig-items-center mt-3">
+    <div class="row p-2" id="card_special">
+      <div mat-dialog-content class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Envía un mensaje</mat-label>
+          <textarea matInput [(ngModel)]="data.message"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <button
+          mat-button
+          class="btn btn-outline-danger btn-block mt-4 mb-3"
+          (click)="onNoClick()"
+        >
+          Cancelar
+        </button>
+      </div>
+      <div class="col-6">
+        <button
+          mat-button
+          class="btn btn-outline-success btn-block mt-4 mb-3"
+          id="btn_special"
+          [mat-dialog-close]="data"
+        >
+          Crear
+        </button>
+      </div>
+    </div>
+  </div>
+   

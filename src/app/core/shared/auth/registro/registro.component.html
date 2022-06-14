@@ -1,0 +1,180 @@
+<div class="container d-flex-justify-center container_form">
+  <div class="card">
+    <ul class="nav_login">
+      <li class="nav_item">
+        <a routerLink="/toggle/login">Iniciar sesión</a>
+      </li>
+      <li class="nav_item active">
+        <a routerLink="/toggle/registro">Crear cuenta</a>
+      </li>
+    </ul>
+
+    <div class="card-body p-5 pt-2 pb-3">
+      <form #f="ngForm" (ngSubmit)="onRegister()" [formGroup]="formRegister">
+        <div class="form-group p-2">
+          <label for="name">Nombre y apellidos</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('name')?.touched && formRegister.get('name')?.errors?.['minlength']"
+          class="alert alert-danger"
+        >
+          El nombre debe contener un mínimo de
+          {{formRegister.get('name')?.errors?.['minlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div
+          *ngIf="formRegister.get('name')?.touched && formRegister.get('name')?.errors?.['maxlength']"
+          class="alert alert-danger"
+        >
+          El nombre debe contener un máximo de
+          {{formRegister.get('name')?.errors?.['maxlength']?.requiredLength}}
+          caracteres
+        </div>
+
+        <div class="form-group p-2">
+          <label for="username">Nombre de usuario</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"
+            formControlName="username"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('username')?.touched && formRegister.get('username')?.errors?.['minlength']"
+          class="alert alert-danger"
+        >
+          El nombre de usuario debe contener un mínimo
+          {{formRegister.get('username')?.errors?.['minlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div
+          *ngIf="formRegister.get('username')?.touched && formRegister.get('username')?.errors?.['maxlength']"
+          class="alert alert-danger"
+        >
+          El nombre de usuario debe contener un máximo de
+          {{formRegister.get('username')?.errors?.['maxlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div class="form-group p-2">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('password')?.touched && formRegister.get('password')?.errors?.['minlength']"
+          class="alert alert-danger"
+        >
+          La contraseña debe tener un mínimo de
+          {{formRegister.get('password')?.errors?.['minlength']?.requiredLength}}
+          caracteres.
+        </div>
+
+        <div class="form-group p-2">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('email')?.touched && formRegister.get('email')?.errors?.['email']"
+          class="alert alert-danger"
+        >
+          El correo está mal formado.
+        </div>
+        <div
+          *ngIf="formRegister.get('email')?.touched && formRegister.get('email')?.errors?.['maxlength']"
+          class="alert alert-danger"
+        >
+          El correo debe contener un máximo de
+          {{formRegister.get('email')?.errors?.['maxlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div class="form-group p-2">
+          <label for="schoolProfileName">Nombre centro</label>
+          <input
+            type="text"
+            name="schoolProfileName"
+            id="schoolProfileName"
+            class="form-control"
+            formControlName="schoolProfileName"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('schoolProfileName')?.touched && formRegister.get('schoolProfileName')?.errors?.['minlength']"
+          class="alert alert-danger"
+        >
+          El nombre de centro debe contener más de
+          {{formRegister.get('schoolProfileName')?.errors?.['minlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div
+          *ngIf="formRegister.get('schoolProfileName')?.touched && formRegister.get('schoolProfileName')?.errors?.['maxlength']"
+          class="alert alert-danger"
+        >
+          El nombre de centro debe contener un máximo de
+          {{formRegister.get('schoolProfileName')?.errors?.['maxlength']?.requiredLength}}
+          caracteres
+        </div>
+        <div class="form-group p-2">
+          <label for="schoolProfileCode">Código de centro</label>
+          <input
+            type="number"
+            name="schoolProfileCode"
+            id="schoolProfileCode"
+            class="form-control"
+            formControlName="schoolProfileCode"
+            required
+          />
+        </div>
+        <div
+          *ngIf="formRegister.get('schoolProfileCode')?.touched && formRegister.get('schoolProfileCode')?.errors?.['min']"
+          class="alert alert-danger"
+        >
+          El código está mal formado. Debe contener de 8 cifras.
+        </div>
+        <div
+          *ngIf="formRegister.get('schoolProfileCode')?.touched && formRegister.get('schoolProfileCode')?.errors?.['max']"
+          class="alert alert-danger"
+        >
+          El código está mal formado. Debe contener de 8 cifras.
+        </div>
+        <div class="row mt-4 d-flex align-items-center">
+          <div class="col-6">
+            <a routerLink="/toggle" class="volver"> Volver </a>
+          </div>
+          <div class="col-6">
+            <button
+              class="btn btn-outline-success btn-block"
+              [disabled]="formRegister.invalid"
+            >
+              Crear cuenta
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

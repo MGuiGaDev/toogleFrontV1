@@ -1,0 +1,49 @@
+<div class="card-body">
+  <form #f="ngForm" (ngSubmit)="onRegisterCycles()" novalidate> 
+    <input
+      type="hidden"
+      value="{{ idSchoolProfile }}"
+      name="id"
+      [(ngModel)]="idSchoolProfile"
+    />
+    <input
+      type="hidden"
+      value="{{ schoolProfileName }}"
+      name="nameProfile"
+      [(ngModel)]="schoolProfileName"
+    />
+    <select
+      class="form-select form-select-lg mb-3"
+      [(ngModel)]="selectedFamily"
+      id="family"
+      name="family" 
+      (change)="changeFamily($event)"  
+      
+    >
+      <option>--Elija Familia--</option>
+      <option value="{{ family.code }}" *ngFor="let family of familyList">
+        {{ family.name }}
+      </option>
+    </select>
+    <select
+      class="form-select form-select-lg mb-3"
+      class="form-select form-select-lg mb-3"
+      [(ngModel)]="selectedCycle"
+      id="code"
+      name="code" 
+      #code
+    >
+      <option>--Elija Ciclo--</option>
+      <option value="{{ cycle.code }}" *ngFor="let cycle of myFamilyList">
+        {{ cycle.name }}
+      </option>
+    </select>
+    <div class="form-group">
+      <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
+        Añadir ciclo
+      </button>
+    </div>
+  </form>
+</div>
+
+

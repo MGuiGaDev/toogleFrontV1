@@ -1,0 +1,20 @@
+<nav class="menu">
+  <ul class="options">
+    <li>
+      <a routerLink="/toggle/perfil-centro/{{ username }}"
+        ><i class="fa-solid fa-user"></i> <span>{{ username }}</span></a
+      >
+    </li>
+    <li *ngIf="!isLogged">
+      <a routerLink="/toggle/login"
+        ><i class="fa-solid fa-sign-in-alt"></i><span>Iniciar sesión</span></a
+      >
+    </li>
+    <li *ngIf="isLogged" (click)="onLogOut()">
+      <a style="cursor: pointer"
+        ><i class="fa-solid fa-sign-out-alt"></i><span>Cerrar sesión</span></a
+      >
+    </li>
+  </ul>
+</nav>
+
