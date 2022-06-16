@@ -48,7 +48,7 @@ export class ListProjectsComponent implements OnInit {
       data: {
         message: '',
       },
-    });
+    }); 
 
     dialogRef.afterClosed().subscribe((result) => {
       const project = {

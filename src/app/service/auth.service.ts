@@ -9,12 +9,11 @@ import { NewBasicUser } from '../core/models/new-basic-user';
 })
 export class AuthService {
 
-  //authURL = 'http://localhost:8080/toggle/auth/';
-  authURL = 'https://toggleback.herokuapp.com/auth/';
-  /**
-   * authURL = 'http://localhost:8080/toggle/auth/';
-   * @param httpClient 
-   */
+
+  //authURL = 'https://toggleback.herokuapp.com/auth/'; 
+  //authURL = 'http://localhost:8080/auth/'; 
+  
+  authURL = 'http://localhost:8080/toggle/auth/';
 
   constructor(private httpClient: HttpClient) { }
 

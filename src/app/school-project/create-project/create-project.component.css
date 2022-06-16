@@ -1,7 +1,10 @@
+#create {
+    height: 110vh;
+}
 #card_special {
     border: 1px solid #dadada;
 }
-.description_field{
+.description_field{ 
     height: 200px;
 }
 .description_field textarea {

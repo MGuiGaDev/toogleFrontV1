@@ -96,6 +96,8 @@ export class PrivateDetailProfileComponent implements OnInit {
   showStudies = false;
   showDataAdmin = false;
 
+  dtOptions: DataTables.Settings = {};
+
   constructor(
     private schoolProfileService: SchoolProfileService,
     private managerService: ManagerService,
@@ -161,6 +163,36 @@ export class PrivateDetailProfileComponent implements OnInit {
     this.passwordForm = this.initForm();
     this.dataForm = this.initFormData();
     this.dataManager = this.initFormManager();
+    this.chargeDtOptions();
+  }
+
+  chargeDtOptions() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      processing: true,
+      searching: true,
+      language: {
+        decimal: '',
+        emptyTable: 'No hay información',
+        info: 'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
+        infoEmpty: 'Mostrando 0 to 0 of 0 Entradas',
+        infoFiltered: '(Filtrado de _MAX_ total entradas)',
+        infoPostFix: '',
+        thousands: ',',
+        lengthMenu: 'Mostrar _MENU_ Entradas',
+        loadingRecords: 'Cargando...',
+        processing: 'Procesando...',
+        search: 'Buscar:',
+        zeroRecords: 'Sin resultados encontrados',
+        paginate: {
+          first: 'Primero',
+          last: 'Ultimo',
+          next: 'Siguiente',
+          previous: 'Anterior', 
+        },
+      },
+    };
   }
 
   chargeData(): void {
@@ -347,6 +379,7 @@ export class PrivateDetailProfileComponent implements OnInit {
     }
     );
   }
+  
   initFormData(): FormGroup {
     return this.fb.group({
       name:  ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -354,6 +387,7 @@ export class PrivateDetailProfileComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(280)]]
     });
   }
+
   initFormManager(): FormGroup {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],

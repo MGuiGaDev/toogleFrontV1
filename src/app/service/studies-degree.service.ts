@@ -7,7 +7,11 @@ import { StudiesCycle } from '../core/models/studies-cycle';
   providedIn: 'root'
 })
 export class StudiesDegreeService {
-  studiesURL = 'https://toggleback.herokuapp.com/studies/';
+  
+  //studiesURL = 'https://toggleback.herokuapp.com/studies/';
+  //studiesURL = 'http://localhost:8080/studies/';
+  studiesURL = 'http://localhost:8080/toggle/studies/';
+
   constructor(private httpClient: HttpClient) { }
 
   public list(): Observable<StudiesCycle[]>{
@@ -15,5 +19,5 @@ export class StudiesDegreeService {
   }
   public getOne(code: string): Observable<any>{
     return this.httpClient.get<StudiesCycle[]>(this.studiesURL + `one/${code}`);
-  }
+  } 
 }

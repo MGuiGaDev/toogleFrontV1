@@ -43,6 +43,7 @@ import { CpComponent } from './teacher-profile/teacher-private-detail-profile/cp
 import { DataTablesModule } from 'angular-datatables';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormSendCollaboratorRequestComponent } from './core/shared/components/modals/form-send-collaborator-request/form-send-collaborator-request.component';
+import { FooterComponent } from './core/shared/components/footer/footer.component';
 
 registerLocaleData(localeEs, 'es')
 
@@ -71,7 +72,8 @@ registerLocaleData(localeEs, 'es')
     CreateProjectComponent,
     FormcreateprojectComponent,
     CpComponent,
-    FormSendCollaboratorRequestComponent
+    FormSendCollaboratorRequestComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

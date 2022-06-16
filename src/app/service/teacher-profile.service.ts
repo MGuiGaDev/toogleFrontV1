@@ -12,14 +12,11 @@ import { TeacherProfile } from '../core/models/teacher-profile';
 })
 export class TeacherProfileService {
 
-
-  context = 'https://toggleback.herokuapp.com/';
-
-  /**
-   *   teacherProfileURL = 'http://localhost:8080/teacher/';
-  projectURL = 'http://localhost:8080/project/';
-  createTeacherProfile = 'http://localhost:8080/auth/';
-   */
+  //https://vercel.com/mguigadev/toogle-front-v1
+  //context = 'https://toggleback.herokuapp.com/';
+  //context = 'http://localhost:8080/';
+  context = 'http://localhost:8080/toggle/';
+  
 
 
   constructor(private httpClient: HttpClient) { }
@@ -93,7 +90,7 @@ export class TeacherProfileService {
   }
 
   public aceptCollaborationRequest(id: number, idProject: any): Observable<any>{
-    return this.httpClient.put<any>(this.context + `teacher/ceptCollaborationRequest/${id}`, idProject);
+    return this.httpClient.put<any>(this.context + `teacher/aceptCollaborationRequest/${id}`, idProject);
   }
 
   public addCollaborator (idTeacher: number, project: any): Observable<any>{

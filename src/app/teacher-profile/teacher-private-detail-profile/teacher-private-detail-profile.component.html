@@ -1,5 +1,5 @@
 <app-menu-profile-teacher></app-menu-profile-teacher>
-<div class="container" *ngIf="teacherName">
+<div class="container" *ngIf="teacherName" id="teacher">
   <div class="row">
     <ul class="menu_school">
       <li>
@@ -24,7 +24,7 @@
     DATOS
 
   -->
-  <div class="row" *ngIf="showData">
+  <div class="row mb-5 mt-5" *ngIf="showData">
     <h1>DATOS PERSONALES</h1>
     <mat-slide-toggle color="primary" [(ngModel)]="showUpdateDataTechaer">
       Actualizar datos
@@ -67,7 +67,7 @@
                 required
               />
             </div>
-            <div 
+            <div
               *ngIf="dataForm.get('name')?.touched && dataForm.get('name')?.errors?.['minlength']"
               class="alert alert-danger"
             >
@@ -139,76 +139,78 @@
     </div>
 
     <h2 class="mt-4">PASSWORD</h2>
-    <mat-slide-toggle
-      color="primary"
-      [(ngModel)]="showUpdatePassword"
-      class="mt-1"
-    >
-      Actualizar Contraseña
-    </mat-slide-toggle>
-    <div
-      class="container mt-2"
-      *ngIf="showUpdatePassword"
-      [@inOutAnimationCycles]
-    >
-      <form (ngSubmit)="updatePasswordTeacher()" [formGroup]="passwordForm">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="newPass"><h2>Nueva Contraseña</h2></label>
-              <input
-                type="password"
-                class="form-control"
-                id="newPass"
-                name="newPass"
-                formControlName="newPass"
-                required
-              />
-            </div>
-            <div
-              *ngIf="passwordForm.get('newPass')?.touched && passwordForm.get('newPass')?.errors?.['minlength']"
-              class="alert alert-danger"
-            >
-              La contraseña debe tener más de
-              {{passwordForm.get('newPass')?.errors?.['minlength']?.requiredLength}}
-              caracteres
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="password"><h2>Confirmación</h2></label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                formControlName="password"
-                required
-              />
+    <div class="mb-5">
+      <mat-slide-toggle
+        color="primary"
+        [(ngModel)]="showUpdatePassword"
+        class="mt-1"
+      >
+        Actualizar Contraseña
+      </mat-slide-toggle>
+      <div
+        class="container mt-2"
+        *ngIf="showUpdatePassword"
+        [@inOutAnimationCycles]
+      >
+        <form (ngSubmit)="updatePasswordTeacher()" [formGroup]="passwordForm">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="newPass"><h2>Nueva Contraseña</h2></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="newPass"
+                  name="newPass"
+                  formControlName="newPass"
+                  required
+                />
+              </div>
               <div
-                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['minlength']"
+                *ngIf="passwordForm.get('newPass')?.touched && passwordForm.get('newPass')?.errors?.['minlength']"
                 class="alert alert-danger"
               >
                 La contraseña debe tener más de
-                {{passwordForm.get('password')?.errors?.['minlength']?.requiredLength}}
+                {{passwordForm.get('newPass')?.errors?.['minlength']?.requiredLength}}
                 caracteres
               </div>
-              <div
-                *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['validUpdatePassword']"
-                class="alert alert-danger"
-              >
-                La contraseña de confirmación no coincide.
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="password"><h2>Confirmación</h2></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  formControlName="password"
+                  required
+                />
+                <div
+                  *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['minlength']"
+                  class="alert alert-danger"
+                >
+                  La contraseña debe tener más de
+                  {{passwordForm.get('password')?.errors?.['minlength']?.requiredLength}}
+                  caracteres
+                </div>
+                <div
+                  *ngIf="passwordForm.get('password')?.touched && passwordForm.get('password')?.errors?.['validUpdatePassword']"
+                  class="alert alert-danger"
+                >
+                  La contraseña de confirmación no coincide.
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <button
-          class="btn btn-outline-success btn-block mt-3"
-          [disabled]="passwordForm.invalid"
-        >
-          Actualizar
-        </button>
-      </form>
+          <button
+            class="btn btn-outline-success btn-block mt-3"
+            [disabled]="passwordForm.invalid"
+          >
+            Actualizar
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -217,12 +219,10 @@
     CYCLES
 
   -->
-  <div class="row" *ngIf="showStudies">
+  <div class="row mb-5 mt-5" *ngIf="showStudies">
     <h1>CICLOS FORMATIVOS ASOCIADOS</h1>
-    <table
-      class="table table-dark table-striped mt-1"
-      *ngIf="listCycles!.length > 0"
-    >
+    <h3 *ngIf="listCycles!.length<1">No tiene ciclos asociados.</h3>
+    <table datatable [dtOptions]="dtOptions" *ngIf="listCycles!.length > 0">
       <thead>
         <tr>
           <th scope="col">Familia</th>
@@ -268,10 +268,14 @@
 
   -->
 
-  <div class="row" *ngIf="showProyects">
+  <div class="row mb-5 mt-5" *ngIf="showProyects">
     <h1>PROYECTOS PROPIOS</h1>
+    <div *ngIf="schoolProjectsCreator!.length < 1">
+      <h3>No tiene ningún proyecto creado.</h3>
+    </div>
     <table
-      class="table table-dark table-striped mt-1"
+      datatable
+      [dtOptions]="dtOptions"
       *ngIf="schoolProjectsCreator!.length > 0"
     >
       <thead>
@@ -300,9 +304,9 @@
             </button>
             <button
               class="btn btn-outline-warning"
-              routerLink="/toggle/perfil-teacher/{{
-                this.username
-              }}/crear-proyecto/{{ project.id }}"
+              routerLink="/perfil-teacher/{{ this.username }}/crear-proyecto/{{
+                project.id
+              }}"
             >
               <i class="far fa-edit"></i>
             </button>
@@ -310,14 +314,16 @@
         </tr>
       </tbody>
     </table>
-
-    <button
-      mat-raised-button
-      (click)="openDialog()"
-      *ngIf="listStudiesCycle!.length > 0"
-    >
-      Crear Proyecto
-    </button>
+    <div class="row d-flex alig-items-center justify-content-center">
+      <button
+        mat-raised-button
+        (click)="openDialog()"
+        *ngIf="listStudiesCycle!.length > 0"
+        class="btn_crear"
+      >
+        Crear Proyecto
+      </button>
+    </div>
 
     <!-- 
 
@@ -326,28 +332,35 @@
   -->
 
     <h1 class="mt-5">PROYECTOS COLABORTIVOS</h1>
-    <table
-      class="table table-dark table-striped mt-1"
-      *ngIf="listCollaboratorProject!.length > 0"
-    >
-      <thead>
-        <tr>
-          <th scope="col">Título</th>
-          <th scope="col">Centro</th>
-          <th scope="col">Fecha de creación</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let project of listCollaboratorProject">
-          <td>{{ project.title }}</td>
-          <td>
-            {{ project.creatorProjectDTO.nameSchoolCreator }} ({{
-              project.creatorProjectDTO.city
-            }})
-          </td>
-          <td>{{ project.currentCreate | date: "mediumDate" }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="listCollaboratorProject!.length<1">
+      <h3>No colabora en ningún proyecto.</h3>
+    </div>
+    <div class="mb-5">
+      <table
+        class="t"
+        datatable
+        [dtOptions]="dtOptions"
+        *ngIf="listCollaboratorProject!.length > 0"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Centro</th>
+            <th scope="col">Fecha de creación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of listCollaboratorProject">
+            <td>{{ project.title }}</td>
+            <td>
+              {{ project.creatorProjectDTO.nameSchoolCreator }} ({{
+                project.creatorProjectDTO.city
+              }})
+            </td>
+            <td>{{ project.currentCreate | date: "mediumDate" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
