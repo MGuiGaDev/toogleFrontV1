@@ -16,7 +16,7 @@ import { ListProjectsComponent } from './school-project/list-projects/list-proje
 
 const routes: Routes = [
   {path: ``, component: IndexComponent},
-  {path: `login`, component: LoginComponent, canActivate: [LoginGuard]},
+  {path: `/login`, component: LoginComponent, canActivate: [LoginGuard]},
   {path: `/registro`, component: RegistroComponent, canActivate: [LoginGuard]},
   {path: `/perfil-teacher/:username/crear-proyecto/:id`, component: CreateProjectComponent, canActivate: [PrivateProfileGuard]},
   {path: `/perfil-centro/:username`, component: PrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
