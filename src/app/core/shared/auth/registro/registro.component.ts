@@ -71,7 +71,7 @@ export class RegistroComponent implements OnInit {
         this.toastr.success(`Cuenta creada. ¡Bienvenido: ${this.formRegister.get("username")?.value}!`, 'OK',{
           timeOut: 3000
         });
-        this.router.navigate(['/toggle/login']);
+        this.router.navigate(['/login']);
       }, 
       err=> {
         this.isRegisterFail=true;

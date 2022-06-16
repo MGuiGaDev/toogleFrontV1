@@ -21,7 +21,7 @@ export class MenuProfileSchoolComponent implements OnInit {
   onLogOut(): void {
     this.tokenService.logOut();
     this.isLogged = false;
-    this.router.navigate(['/toggle']);
+    this.router.navigate(['/']);
     //window.location.reload();
   }
 }

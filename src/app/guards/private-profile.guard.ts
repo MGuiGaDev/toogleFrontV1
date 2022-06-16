@@ -15,10 +15,10 @@ export class PrivateProfileGuard implements CanActivate {
     const expectedUsername = route.params.username;
     this.username = this.tokenService.getUserName();
     if(this.username=='') {
-      this.router.navigate([`/toggle/login`]);
+      this.router.navigate([`/login`]);
       return false;
     } else if(expectedUsername!==this.username){
-        this.router.navigate([`/toggle/perfil-teacher/${this.username}`]);
+        this.router.navigate([`/perfil-teacher/${this.username}`]);
       return false;
     } else {
         return true;

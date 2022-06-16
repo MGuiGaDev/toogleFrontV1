@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
         this.username = this.tokenService.getUserName();
         let userType = this.tokenService.getUserType();
         if(userType==="M") {
-          this.router.navigate([`/toggle/perfil-centro/${this.username}`]);
+          this.router.navigate([`/perfil-centro/${this.username}`]);
         } else {
-          this.router.navigate([`/toggle/perfil-teacher/${this.username}`]);
+          this.router.navigate([`/perfil-teacher/${this.username}`]);
         }
         
       }, 
