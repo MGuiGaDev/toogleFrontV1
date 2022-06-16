@@ -8,9 +8,9 @@ import { StudiesCycle } from '../core/models/studies-cycle';
 })
 export class StudiesDegreeService {
   
-  //studiesURL = 'https://toggleback.herokuapp.com/studies/';
+  studiesURL = 'https://toggleback.herokuapp.com/studies/';
   //studiesURL = 'http://localhost:8080/studies/';
-  studiesURL = 'http://localhost:8080/toggle/studies/';
+  //studiesURL = 'http://localhost:8080/toggle/studies/';
 
   constructor(private httpClient: HttpClient) { }
 
