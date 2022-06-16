@@ -16,13 +16,13 @@ import { ListProjectsComponent } from './school-project/list-projects/list-proje
 
 const routes: Routes = [
   {path: ``, component: IndexComponent},
-  {path: `/login`, component: LoginComponent, canActivate: [LoginGuard]},
-  {path: `/registro`, component: RegistroComponent, canActivate: [LoginGuard]},
-  {path: `/perfil-teacher/:username/crear-proyecto/:id`, component: CreateProjectComponent, canActivate: [PrivateProfileGuard]},
-  {path: `/perfil-centro/:username`, component: PrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
-  {path: `/perfil-teacher/:username`, component: TeacherPrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
-  {path: `/perfil-teacher/:username/colaborar-en-proyectos`, component: ListProjectsComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
-  {path: `/perfil-centro/:username/editar/:id`, component: UpdateProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
+  {path: `login`, component: LoginComponent, canActivate: [LoginGuard]},
+  {path: `registro`, component: RegistroComponent, canActivate: [LoginGuard]},
+  {path: `perfil-teacher/:username/crear-proyecto/:id`, component: CreateProjectComponent, canActivate: [PrivateProfileGuard]},
+  {path: `perfil-centro/:username`, component: PrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
+  {path: `perfil-teacher/:username`, component: TeacherPrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
+  {path: `perfil-teacher/:username/colaborar-en-proyectos`, component: ListProjectsComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
+  {path: `perfil-centro/:username/editar/:id`, component: UpdateProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
  
