@@ -13,10 +13,10 @@ import { TeacherPrivateDetailProfileComponent } from './teacher-profile/teacher-
 import { CreateProjectComponent } from './school-project/create-project/create-project.component';
 import { ListProjectsComponent } from './school-project/list-projects/list-projects.component';
 
-const contextPath = environment.contextPath;
+
 const routes: Routes = [
   {path: ``, component: IndexComponent},
-  {path: `/login`, component: LoginComponent, canActivate: [LoginGuard]},
+  {path: `login`, component: LoginComponent, canActivate: [LoginGuard]},
   {path: `/registro`, component: RegistroComponent, canActivate: [LoginGuard]},
   {path: `/perfil-teacher/:username/crear-proyecto/:id`, component: CreateProjectComponent, canActivate: [PrivateProfileGuard]},
   {path: `/perfil-centro/:username`, component: PrivateDetailProfileComponent, canActivate: [PrivateProfileGuard, SchoolGuard], data: {expectedRol: ['admin', 'user']}},
