@@ -11,7 +11,7 @@ import { StudiesCycle } from '../core/models/studies-cycle';
 })
 export class SchoolProfileService {
 
-  schoolProfileURL = 'http://localhost:8080/toggle/account/';
+  schoolProfileURL = 'https://toggleback.herokuapp.com/account/';
 
   /**
    * schoolProfileURL = 'http://localhost:8080/account/';

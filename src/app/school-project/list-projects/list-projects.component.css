@@ -33,3 +33,18 @@ span {
   font-size: 20px;
   padding: 20px;
 }
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.searchTerm {
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #dadada;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  font-size: 20px;
+}

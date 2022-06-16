@@ -62,7 +62,7 @@ export class CreateTeacherComponent implements OnInit {
       (data) => {
         Swal.fire(
           'Operación realizada.',
-          `Profesor creado: ${this.name}!`,
+          `Profesor creado!`,
           'success'
         );
         window.location.reload();

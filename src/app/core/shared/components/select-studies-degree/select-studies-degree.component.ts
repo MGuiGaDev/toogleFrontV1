@@ -170,7 +170,7 @@ export class SelectStudiesDegreeComponent implements OnInit {
         (data) => {
           Swal.fire({
             title: 'Operación realizada.',
-            text: '¡No podrá recuperar este perfil!',
+            text: '¡Ciclo guardado!',
             icon: 'success',
             showCancelButton: false,
             confirmButtonText: '¡Ok!',

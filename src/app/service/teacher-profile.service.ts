@@ -12,11 +12,8 @@ import { TeacherProfile } from '../core/models/teacher-profile';
 })
 export class TeacherProfileService {
 
-  teacherProfileURL = 'http://localhost:8080/toggle/teacher/';
-  projectURL = 'http://localhost:8080/toggle/project/';
-  createTeacherProfile = 'http://localhost:8080/toggle/auth/';
 
-  context = 'http://localhost:8080/toggle/';
+  context = 'https://toggleback.herokuapp.com/';
 
   /**
    *   teacherProfileURL = 'http://localhost:8080/teacher/';
@@ -80,31 +77,31 @@ export class TeacherProfileService {
   
 
   public deleteProject(id: number): Observable<any>{
-    return this.httpClient.delete<any>(this.teacherProfileURL + `teacher/deleteProject/${id}`);
+    return this.httpClient.delete<any>(this.context + `teacher/deleteProject/${id}`);
   }
 
   public addCycleToProyect(id: number, code: any): Observable<any>{
-    return this.httpClient.put<any>(this.teacherProfileURL + `teacher/addCycleToProyect/${id}`, code);
+    return this.httpClient.put<any>(this.context + `teacher/addCycleToProyect/${id}`, code);
   }
 
   public deleteCycleOfProyect(id: number, code: any): Observable<any>{
-    return this.httpClient.delete<any>(this.teacherProfileURL + `teacher/deleteCycleOfProyect/${id}`, {body:code});
+    return this.httpClient.delete<any>(this.context + `teacher/deleteCycleOfProyect/${id}`, {body:code});
   }
 
   public addCollaborationRequest(username: string, project: any): Observable<any>{
-    return this.httpClient.post<any>(this.teacherProfileURL + `teacher/addCollaborationRequest/${username}`, project);
+    return this.httpClient.post<any>(this.context + `teacher/addCollaborationRequest/${username}`, project);
   }
 
   public aceptCollaborationRequest(id: number, idProject: any): Observable<any>{
-    return this.httpClient.put<any>(this.teacherProfileURL + `teacher/ceptCollaborationRequest/${id}`, idProject);
+    return this.httpClient.put<any>(this.context + `teacher/ceptCollaborationRequest/${id}`, idProject);
   }
 
   public addCollaborator (idTeacher: number, project: any): Observable<any>{
-    return this.httpClient.put<any>(this.teacherProfileURL + `teacher/addCollaborator/${idTeacher}`, project);
+    return this.httpClient.put<any>(this.context + `teacher/addCollaborator/${idTeacher}`, project);
   }
 
   public refuseCollaborationRequest(id: number, idProject: any): Observable<any>{
-    return this.httpClient.put<any>(this.teacherProfileURL + `teacher/refuseCollaborationRequest/${id}`, idProject);
+    return this.httpClient.put<any>(this.context + `teacher/refuseCollaborationRequest/${id}`, idProject);
   }
 
   
